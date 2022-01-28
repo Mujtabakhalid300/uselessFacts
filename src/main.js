@@ -37,6 +37,7 @@ function App() {
                   <CardPost
                     number={number.number}
                     data={number.fact}
+                    timing={1000}
                   ></CardPost>
                 </Grid>
               ))}
