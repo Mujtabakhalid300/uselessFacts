@@ -5,7 +5,8 @@ function CardPost(props) {
     <Card
       sx={{
         height: {
-          xs: 200,
+          xs: "auto",
+          sm: 300,
         },
         my: "1rem",
       }}
