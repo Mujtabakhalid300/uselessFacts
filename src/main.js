@@ -15,6 +15,7 @@ const usestyles = makeStyles({
 });
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState("");
   const [facts] = useState(list);
   const [currentPage, setCurrentPage] = useState(1);
   const [factsPerPage] = useState(25);
@@ -30,12 +31,21 @@ function App() {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  const Search = (term) => {
+    setSearchTerm(term);
+  };
   return (
     <>
       <CssBaseline />
-      <Grid className={classes.mainwrapper} container spacing={2}>
+      <Grid
+        className={classes.mainwrapper}
+        container
+        spacing={2}
+        style={{ minHeight: "103vh" }}
+      >
         <Grid item xs={12}>
-          <NavBar callback={handlecallback} />
+          <NavBar callback={handlecallback} Search={Search} />
         </Grid>
         <Grid item container spacing={3}>
           <Grid item xs={1}></Grid>
@@ -43,15 +53,25 @@ function App() {
             <Generator data={list[Math.floor(Math.random() * 100)].fact} />
           ) : (
             <Grid item xs={10} container spacing={3}>
-              {currentFacts.map((number, key) => (
-                <Grid key={key} item xs={12} sm={6} md={4}>
-                  <CardPost
-                    number={number.number}
-                    data={number.fact}
-                    timing={1000}
-                  ></CardPost>
-                </Grid>
-              ))}
+              {currentFacts
+                .filter((fact) => {
+                  if (searchTerm === "") {
+                    return fact;
+                  } else if (
+                    fact.fact.toLowerCase().includes(searchTerm.toLowerCase())
+                  ) {
+                    return fact;
+                  }
+                })
+                .map((number, key) => (
+                  <Grid key={key} item xs={12} sm={6} md={4}>
+                    <CardPost
+                      number={number.number}
+                      data={number.fact}
+                      timing={1000}
+                    ></CardPost>
+                  </Grid>
+                ))}
             </Grid>
           )}
           <Grid item xs={1}></Grid>

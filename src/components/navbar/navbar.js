@@ -3,6 +3,7 @@ import {
   Button,
   IconButton,
   Slide,
+  TextField,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -27,6 +28,12 @@ function NavBar(props) {
           <Button variant="inherit" onClick={handleRandom}>
             RANDOM
           </Button>
+          <TextField
+            variant="outlined"
+            label="Search Facts"
+            sx={{ flexGrow: 1 }}
+            onChange={(e) => props.Search(e.target.value)}
+          ></TextField>
           <IconButton color="inherit" size="Large">
             <SpeedIcon></SpeedIcon>
           </IconButton>
